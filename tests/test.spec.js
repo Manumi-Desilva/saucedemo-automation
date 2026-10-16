@@ -65,6 +65,12 @@ test('SauceDemo complete user flow', async ({ page }) => {
   await expect(page).toHaveURL(/inventory.html/);
   await expect(page.locator('.title')).toHaveText('Products');
 
+//Check filter functionality
+  await inventoryPage.filterProducts('Price (low to high)');
+  const prices = await inventoryPage.getProductPrices();
+  const sortedPrices = [...prices].sort((a, b) => a - b);
+  expect(prices).toEqual(sortedPrices);
+
   // 14. Add Backpack again to test product removal
   await inventoryPage.addBackpack();
   await expect(inventoryPage.cartBadge).toHaveText('1');
