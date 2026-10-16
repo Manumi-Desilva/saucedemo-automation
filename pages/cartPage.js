@@ -19,7 +19,7 @@ class CartPage {
     await this.removeButton.click();
   }
 
-  // Logout from the application
+  // Logout from application
   async logout() {
     await this.menuButton.click();
     await this.logoutButton.waitFor({ state: 'visible' });
