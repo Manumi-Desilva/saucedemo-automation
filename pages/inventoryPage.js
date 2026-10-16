@@ -13,6 +13,24 @@ class InventoryPage {
     await this.title.waitFor();
   }
 
+  //filter products
+  async filterProducts(filter) {
+    await this.page.locator('.product_sort_container').selectOption(filter);
+  }
+  //get product prices
+  async getProductPrices() {
+    const priceElements = await this.page.locator('.inventory_item_price').all();
+
+    const prices = [];
+    for (const element of priceElements) {
+      const text = await element.textContent();
+      prices.push(parseFloat(text.replace('$', '')));
+    }
+    return prices;
+  }
+
+ 
+
   //add product
   async addBackpack() {
     await this.page
